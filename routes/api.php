@@ -18,7 +18,12 @@ $api->version('v1', function ($api) {
     $api->group(['prefix' => 'auth'], function ($api) {
         $api->POST('login', 'App\Http\Controllers\AuthController@login');
         $api->POST('logout', 'App\Http\Controllers\AuthController@logout');
-        $api->GET('me', 'App\Http\Controllers\AuthController@me');
         $api->POST('register', 'App\Http\Controllers\RegisterController@index');
+        $api->GET('me', 'App\Http\Controllers\AuthController@me');
+    });
+
+    $api->group(['prefix' => 'user'], function ($api) {
+        $api->GET('index', 'App\Http\Controllers\UserController@index');
+        $api->POST('profile', 'App\Http\Controllers\UserController@store');
     });
 });

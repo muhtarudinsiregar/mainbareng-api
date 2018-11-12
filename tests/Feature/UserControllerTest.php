@@ -5,10 +5,10 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\User;
 
-class UserTest extends TestCase
+class UserControllerTest extends TestCase
 {
     use DatabaseMigrations;
 
@@ -16,6 +16,26 @@ class UserTest extends TestCase
     {
         parent::setUp();
         $this->login();
+    }
+
+    /**
+     * A basic test example.
+     *
+     * @return void
+     */
+    public function testInsertProfileUserSuccess()
+    {
+        $response = $this->postJson('api/user/profile', [
+            'phone' => '081229',
+            'gender_id' => 1,
+            'city' => 'Jakarta',
+            'photo_path' => '/image/exmaple.jpg',
+            'address' => 'lorem ipsum',
+            'birth_date' => '10-12-2018',
+            'summary' => 'Lorem ipsum dolor sit amet consectetur adipisicing'
+        ]);
+
+        $response->assertSuccessful();
     }
 
     /**
