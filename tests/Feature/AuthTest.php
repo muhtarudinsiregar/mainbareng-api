@@ -11,6 +11,13 @@ use App\User;
 class AuthTest extends TestCase
 {
     use DatabaseMigrations;
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->login();
+    }
+
     /**
      * A test to authenticate user.
      *
@@ -34,7 +41,7 @@ class AuthTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->post('/api/auth/logout', [], $this->headers($user));
+        $response = $this->post('/api/auth/logout', []);
 
         $response->assertStatus(200)->assertJsonFragment(
             ['message' => "Successfully logged out"]

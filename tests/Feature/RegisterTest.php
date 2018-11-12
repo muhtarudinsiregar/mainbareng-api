@@ -11,6 +11,13 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 class RegisterTest extends TestCase
 {
     use DatabaseMigrations;
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->login();
+    }
+
     /**
      * A basic test example.
      *

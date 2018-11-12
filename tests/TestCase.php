@@ -12,17 +12,11 @@ abstract class TestCase extends BaseTestCase
 
     protected $headers = ['Accept' => 'application/json'];
 
-    public function headers($user)
+    public function call($method, $uri, $parameters = [], $cookies = [], $files = [], $server = [], $content = null)
     {
-        $headers = ['Accept' => 'application/json'];
-
-        if (!is_null($user)) {
-            $token = JWTAuth::fromUser($user);
-            JWTAuth::setToken($token);
-            $headers['Authorization'] = 'Bearer ' . $token;
-        }
-
-        return $headers;
+        $applicationJson = $this->transformHeadersToServerVars($this->headers);
+        $server = array_merge($server, $applicationJson);
+        return parent::call($method, $uri, $parameters, $cookies, $files, $server, $content);
     }
 
     public function login($user = null)
