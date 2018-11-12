@@ -43,6 +43,11 @@ class User extends Authenticatable implements JWTSubject
         $this->attributes['password'] = bcrypt($value);
     }
 
+    public function getGenderAttribute($value)
+    {
+        return ($this->gender_id) ? 'Man' : 'Women';
+    }
+
     /**
      * Return a key value array, containing any custom claims to be added to the JWT.
      *
